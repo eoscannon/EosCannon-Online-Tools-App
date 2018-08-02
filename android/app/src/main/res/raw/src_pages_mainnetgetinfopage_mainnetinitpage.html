@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./lib/eos.js"></script>
+<script>
+    var eos = null;
+    window.onload =  function() {
+        document.addEventListener('message', function(e) {
+            window.postMessage('start')
+            eos = Eos({
+                httpEndpoint: 'https://api.eoseco.com',
+                chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+            });
+            testEos();
+        });
+    }
+    function testEos() {
+        const expireInSeconds = 60 * 60; // 1 hour
+        eos.getInfo({}).then((info) => {
+            const chainDate = new Date(`${info.head_block_time}Z`);
+        const expiration = new Date(chainDate.getTime() + expireInSeconds * 1000);
+        const expirationStr = expiration.toISOString().split('.')[0];
+        const refBlockNum = info.last_irreversible_block_num & 0xffff;
+        eos.getBlock(info.last_irreversible_block_num).then(block => {
+            const refBlockPrefix = block.ref_block_prefix;
+            const transactionHeaders = {
+                expiration: expirationStr,
+                refBlockNum: refBlockNum,
+                refBlockPrefix: refBlockPrefix,
+                chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
+            };
+        window.postMessage( JSON.stringify(transactionHeaders));
+        })
+    })
+    }
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

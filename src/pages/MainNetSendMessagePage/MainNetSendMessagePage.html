@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="./lib/eos.js"></script>
+<script>
+    var eos = null;
+    window.onload =  function() {
+        document.addEventListener('message', function(e) {
+            window.postMessage('start    '+JSON.parse(e.data))
+            eos = Eos({
+                httpEndpoint: 'https://api.eoseco.com',
+                chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+            });
+            testEos(e);
+        });
+    }
+    function testEos(e) {
+        eos.pushTransaction(JSON.parse(e.data)).then((res) => {
+            window.postMessage(JSON.stringify(res.transaction_id))
+        }).catch((err) => {
+            console.log('Err:',err);
+        });
+    }
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

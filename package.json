@@ -1,0 +1,53 @@
+{
+  "name": "cannon_online_tool_app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "keystore": "keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000",
+    "bundle": "react-native bundle --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.jsbundle --platform android --assets-dest ./android/app/src/main/res/ --dev false",
+    "clean": "rm -rf ./android/app/src/main/res/drawable-* ./android/app/src/main/res/drawable/*.gif ",
+    "build": "cd android && ./gradlew assembleRelease --info"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "babel-plugin-import": "^1.8.0",
+    "buffer": "^5.1.0",
+    "inherits": "^2.0.3",
+    "react": "16.4.1",
+    "react-native": "0.56.0",
+    "react-native-camera": "^1.1.4",
+    "react-native-eosjs": "0.0.6",
+    "react-native-keyboard-aware-scroll-view": "^0.6.0",
+    "react-native-linear-gradient": "^2.4.0",
+    "react-native-qr-scanner": "^1.2.4",
+    "react-native-qrcode": "^0.2.6",
+    "react-native-storage": "^0.2.2",
+    "react-navigation": "^2.7.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "stream": "0.0.2",
+    "string_decoder": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "22.4.3",
+    "babel-preset-react-native": "^5.0.2",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.10.0",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react-native-stage-0": "^1.0.1",
+    "rn-nodeify": "^10.0.0",
+    "rn-splash-screen": "^5.2.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
